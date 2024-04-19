@@ -1,186 +1,119 @@
 import os
-from random import shuffle
-
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-import networkx as nx
 import webbrowser
+from collections import Counter
+
 from submitter import submit, URL_PLAY
 
 
-# Rock, Paper, Scisscors, Lizard, Spock=Y
-KILL_LOOKUP = {
-    frozenset("RS"): "R",
-    frozenset("PR"): "P",
-    frozenset("PS"): "S",
-    # extend by Y = spock, and L = lizard
-    frozenset("RL"): "R",
-    frozenset("LP"): "L",
-    frozenset("PS"): "S",
-    frozenset("SR"): "R",
-    frozenset("RP"): "P",
-    frozenset("SP"): "S",
-    frozenset("YR"): "R",
-    frozenset("YL"): "L",
-    frozenset("YP"): "Y",
-    frozenset("YS"): "S",
-    frozenset("LS"): "L",
-    frozenset("LR"): "L",
-}
+def fight(a, b):
+    """ return the winner of a rock paper lizard spock game, where spock is Y """
+    winning_chars = {"R": "LS", "P": "R", "S": "P", "L": "PS", "Y": "RL"}
+    if a == b or (a in winning_chars and b in winning_chars[a]):
+        return a
+    return b
 
 
-def fight(line):
-    sl = frozenset(line)
-    if len(sl) == 1:
-        return line[0]
-    return KILL_LOOKUP[sl]
+def lvl1(line):
+    return fight(*line)
 
 
-def lvl1(fn):
-    lines = open(fn).read().strip().split("\n")[1:]
-    out = [fight(line) for line in lines]
-    return "\n".join(out) + "\n"
-
-
-def fight2(line):
-    # split into chunks of 2, reduce to 2
+def lvl2(line, to_end=False):
+    # run 2 rounds of fights for an arbitrary number of players
+    if to_end:
+        while len(line) > 1:
+            line = "".join([fight(line[i], line[i + 1]) for i in range(0, len(line), 2)])
+        return line
     for _ in range(2):
-        line = [fight(line[i:i+2]) for i in range(0, len(line), 2)]
-    return "".join(line)
+        line = "".join([fight(line[i], line[i + 1]) for i in range(0, len(line), 2)])
+    return line
 
 
-def lvl2(fn):
-    lines = open(fn).read().strip().split("\n")[1:]
-    out = [fight2(line) for line in lines]
-    return "\n".join(out) + "\n"
-
-
-def generate_fighters1(line):
-    """ a line is like 4R 3P 1S
-    we want to generate it so that no rock fighters and at least one scissor fighter is left """
-    line = line.split(" ")
-    r = int(line[0][:-1])
-    p = int(line[1][:-1])
-    s = int(line[2][:-1])
-    oout = "R" * r + "P" * p + "S" * s
+def lvl3(line):
+    """ line is a counter dict, i.e. 4R 3P 1S, always in that order, make it a Counter """
+    budget = Counter({k: int("".join(v)) for *v, k in line.split(" ")})
     out = ""
-    while r > 1:
-        rc = min(3, r)
-        pc = 4 - rc
-        sc = 0
-        if pc > p:
-            pc = p
-            sc = 4 - rc - pc
-            s -= sc
-        out += "S" * sc + "R" * rc + "P" * pc
-        r -= rc
-        p -= pc
-    out += "R" * r + "P" * p + "S" * s
-    fight_result = fight2(out)
-    print(out, fight_result, line)
-    assert "R" not in fight_result
-    assert "S" in fight_result
-    assert len(out) == len(oout)
+    while sum(budget.values()) > 0:
+        rc = min(budget["R"], 3)
+        pc = min(budget["P"], 4-rc)
+        sc = 4 - rc - pc
+        chunk_out = "R" * rc + "P" * pc + "S" * sc
+        if chunk_out == "RRPS":
+            chunk_out = "RSRP"
+        winner = lvl2(chunk_out)
+        assert "R" not in winner, (winner, chunk_out)
+        out += chunk_out
+        budget -= Counter({"R": rc, "P": pc, "S": sc})
+    winners = lvl2(out)
+    assert "R" not in winners and "S" in winners, (winners, out)
     return out
 
 
-def lvl3(fn):
-    lines = open(fn).read().strip().split("\n")[1:]
-    out = [generate_fighters1(line) for line in lines]
-    return "\n".join(out) + "\n"
+def lvl4(line):
+    # expand so that you consume R first, then P, then S
+    budget = Counter({k: int("".join(v)) for *v, k in line.split(" ")})
+    budget["S"] -= 1
+    out = "S"
+    expansion_dicts = [
+        {"R": "RS", "P": "RP", "S": "PS"},
+        {"R": "SR", "P": "RP", "S": "PS"},
+        {"R": "RS", "P": "PR", "S": "PS"},
+        {"R": "SR", "P": "RP", "S": "PS"},
+        {"R": "RS", "P": "RP", "S": "SP"},
+        {"R": "SR", "P": "RP", "S": "SP"},
+        {"R": "RS", "P": "PR", "S": "SP"},
+        {"R": "SR", "P": "RP", "S": "SP"},
+    ]
 
+    def expand(iin, budget, expand_dict):
+        nout = ""
+        for i in iin:
+            for try_expand in expand_dict[i]:
+                if budget[try_expand] > 0:
+                    nout += try_expand + i
+                    budget[try_expand] -= 1
+                    break
+            else:
+                raise ValueError("no expansion possible")
+        if sum(budget.values()) == 0:
+            for expand_dict in expansion_dicts:
+                try:
+                    nout, budget = expand(nout, budget.copy(), expand_dict)
+                    break
+                except ValueError:
+                    pass
+        return nout, budget
 
-def fight3(line):
-    # split into chunks of 2, reduce to 2
-    while len(line) > 1:
-        line = [fight(line[i:i+2]) for i in range(0, len(line), 2)]
-        # print(line)
-    return "".join(line)
-
-
-def generate_fighters2(line):
-    """ a line is like 4R 3P 1S
-    we want to generate it so that no rock fighters and at least one scissor fighter is left """
-    line = line.split(" ")
-    r = int(line[0][:-1])
-    p = int(line[1][:-1])
-    s = int(line[2][:-1])
-    out = ""
-    oout = "R" * r + "P" * p + "S" * s
-    while (r+p+s) > 1:
-        r, p, s, outp = generate_left2(r, p, s)
-        out += outp
-    out += "S"
-    fight_result = fight3(out)
-    print(out, fight_result, line)
-    assert "S" in fight_result
-    assert len(out) == len(oout), [len(out), len(oout)]
+    for expand_dict in expansion_dicts:
+        try:
+            out, budget = expand(out, budget, expand_dict)
+            break
+        except ValueError:
+            pass
+    else:
+        raise ValueError(":(")
+    winner = lvl2(out, to_end=True)
+    assert "S" == winner, (winner, out)
     return out
 
 
-def generate_left2(r, p, s):
-    oout = "R" * r + "P" * p + "S" * s
-    out = ""
-    finale_size = len(oout) // 2
-
-    rc = min(finale_size-1, r)
-    pc = finale_size - rc
-    sc = 0
-    if pc > p:
-        pc = p
-        sc = finale_size - rc - pc
-        s -= sc
-    out += "P" * pc + "R" * rc + "S" * sc
-    r -= rc
-    p -= pc
-
-    return r, p, s, out
-
-
-def generate_fighters3(line, idx):
-    """ a line is like 6R 5P 2S 3Y 0L
-    generate pairings so that the winner is a scissors fighter """
-    print("idx", idx)
-    line = line.split(" ")
-    r = int(line[0][:-1])
-    p = int(line[1][:-1])
-    s = int(line[2][:-1])
-    y = int(line[3][:-1])
-    l = int(line[4][:-1])
-    out = list("S" * s + "L" * l + "P" * p + "Y" * y + "R" * r)
-    fight_result = ""
-    while fight_result != "S":
-        shuffle(out)
-        fight_result = fight3(out)
-    return "".join(out)
-
-
-def lvl4(fn):
-    lines = open(fn).read().strip().split("\n")[1:]
-    out = [generate_fighters3(line) for line in lines]
-    return "\n".join(out) + "\n"
-
-
-def lvl5(fn):
-    print("file", fn)
-    lines = open(fn).read().strip().split("\n")[1:]
-    out = [generate_fighters3(line, idx) for idx, line in enumerate(lines)]
-    return "\n".join(out) + "\n"
+def lvl5(line):
+    pass
 
 
 if __name__ == "__main__":
-    level = 5
+    level = 1
     done = set(open("data/done.txt").read().strip().split("\n"))
     todo_this_level = len([f for f in os.listdir("data") if f.startswith(f"level{level}_") and f.endswith(".in")])
     for i in ["example"] + list(range(1, todo_this_level + 1)):
         example = f"level{level}_{i}"
+        f_in = f"data/{example}.in"
         # check if the example.in exists and is not done
-        if not os.path.exists(f"data/{example}.in") or example in done:
+        if not os.path.exists(f_in):
             continue
+        lines = open(f_in).read().strip().split("\n")[1:]
         lvl_func = globals()[f"lvl{level}"]
-        res = lvl_func(f"data/{example}.in")
-        if i == "example":
+        res = "\n".join([lvl_func(line) for line in lines]) + "\n"
+        if i == "example" or example in done:
             expected = open(f"data/{example}.out").read()
             # assert res == expected, f"{res}\n\n{expected}"
         else:
