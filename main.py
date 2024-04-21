@@ -1,107 +1,135 @@
+import itertools
 import os
 import webbrowser
-from collections import Counter
+from typing import Tuple, List
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 from submitter import submit, URL_PLAY
 
-
-def fight(a, b):
-    """ return the winner of a rock paper lizard spock game, where spock is Y """
-    winning_chars = {"R": "LS", "P": "R", "S": "P", "L": "PS", "Y": "RL"}
-    if a == b or (a in winning_chars and b in winning_chars[a]):
-        return a
-    return b
+dir2complex = {"W": -1, "D": 1j, "S": 1, "A": -1j}
+complex2dir = {v: k for k, v in dir2complex.items()}
 
 
 def lvl1(line):
-    return fight(*line)
+    w, d, s, a = [line.count(i) for i in "WDSA"]
+    return f"{w} {d} {s} {a}"
 
 
-def lvl2(line, to_end=False):
-    # run 2 rounds of fights for an arbitrary number of players
-    if to_end:
-        while len(line) > 1:
-            line = "".join([fight(line[i], line[i + 1]) for i in range(0, len(line), 2)])
-        return line
-    for _ in range(2):
-        line = "".join([fight(line[i], line[i + 1]) for i in range(0, len(line), 2)])
-    return line
-
-
-def lvl3(line):
-    """ line is a counter dict, i.e. 4R 3P 1S, always in that order, make it a Counter """
-    budget = Counter({k: int("".join(v)) for *v, k in line.split(" ")})
-    out = ""
-    while sum(budget.values()) > 0:
-        rc = min(budget["R"], 3)
-        pc = min(budget["P"], 4-rc)
-        sc = 4 - rc - pc
-        chunk_out = "R" * rc + "P" * pc + "S" * sc
-        if chunk_out == "RRPS":
-            chunk_out = "RSRP"
-        winner = lvl2(chunk_out)
-        assert "R" not in winner, (winner, chunk_out)
-        out += chunk_out
-        budget -= Counter({"R": rc, "P": pc, "S": sc})
-    winners = lvl2(out)
-    assert "R" not in winners and "S" in winners, (winners, out)
-    return out
-
-
-def lvl4(line):
-    # expand so that you consume R first, then P, then S
-    budget = Counter({k: int("".join(v)) for *v, k in line.split(" ")})
-    budget["S"] -= 1
-    out = "S"
-    expansion_dicts = [
-        {"R": "RS", "P": "RP", "S": "PS"},
-        {"R": "SR", "P": "RP", "S": "PS"},
-        {"R": "RS", "P": "PR", "S": "PS"},
-        {"R": "SR", "P": "RP", "S": "PS"},
-        {"R": "RS", "P": "RP", "S": "SP"},
-        {"R": "SR", "P": "RP", "S": "SP"},
-        {"R": "RS", "P": "PR", "S": "SP"},
-        {"R": "SR", "P": "RP", "S": "SP"},
-    ]
-
-    def expand(iin, budget, expand_dict):
-        nout = ""
-        for i in iin:
-            for try_expand in expand_dict[i]:
-                if budget[try_expand] > 0:
-                    nout += try_expand + i
-                    budget[try_expand] -= 1
-                    break
-            else:
-                raise ValueError("no expansion possible")
-        if sum(budget.values()) == 0:
-            for expand_dict in expansion_dicts:
-                try:
-                    nout, budget = expand(nout, budget.copy(), expand_dict)
-                    break
-                except ValueError:
-                    pass
-        return nout, budget
-
-    for expand_dict in expansion_dicts:
-        try:
-            out, budget = expand(out, budget, expand_dict)
-            break
-        except ValueError:
-            pass
+def lvl2(line, start: complex = None, field: np.ndarray = None):
+    pos = start or 0
+    seen = {pos: 0}
+    for idx, c in enumerate(line, 1):
+        pos += dir2complex[c]
+        if pos in seen and field is not None:
+            print("self crash")
+            return False
+        seen[pos] = idx
+        if start is not None and field is not None:
+            try:
+                xpos, ypos = int(pos.real), int(pos.imag)
+                if field[xpos, ypos]:
+                    print("tree crash")
+                    return False
+            except IndexError:
+                print("out of field")
+                return False
+    # calculate min and max x
+    min_x = min(p.real for p in seen)
+    max_x = max(p.real for p in seen)
+    # calculate min and max y
+    min_y = min(p.imag for p in seen)
+    max_y = max(p.imag for p in seen)
+    # calculate area
+    height = int(max_x - min_x + 1)
+    width = int(max_y - min_y + 1)
+    if start is None:
+        return width, height, int(-min_x), int(-min_y)
     else:
-        raise ValueError(":(")
-    winner = lvl2(out, to_end=True)
-    assert "S" == winner, (winner, out)
-    return out
+        # visited all cells without a tree, did not leave the lawn
+        all_visited = len(seen) + field.sum() == field.size
+        print("all visited", all_visited)
+        return all_visited
 
 
-def lvl5(line):
-    pass
+def lvl3(lines):
+    res = []
+    while lines:
+        xdim, ydim = map(int, lines.pop(0).split())
+        field = np.zeros((ydim, xdim), dtype=bool)
+        for y, line in enumerate(lines[:ydim]):
+            field[y] = [c == "X" for c in line]
+        lines = lines[ydim:]
+        path = lines.pop(0)
+        res.append(lvl3_inner(path, field))
+    return "\n".join(map(lambda b: "VALID" if b else "INVALID", res)) + "\n"
+
+
+def lvl3_inner(path: str, field: np.ndarray) -> bool:
+    """ check if field is valid, so if it doesn't self cross and doesn't collide with a tree"""
+    width, height, xpos, ypos = lvl2(path)
+    if not (width <= field.shape[1] and height <= field.shape[0]):
+        print("driving out of field")
+        return False
+    start = xpos + ypos * 1j
+    return lvl2(path, start=start, field=field)
+
+
+def lvl4(lines: List[str]):
+    """ first line contains x/y, then the field with exactly 1 tree """
+    out = []
+    while lines:
+        xdim, ydim = map(int, lines.pop(0).split())
+        field = np.zeros((ydim, xdim), dtype=bool)
+        for i, line in enumerate(lines[:ydim]):
+            field[i] = [c == "X" for c in line]
+        # find the tree
+        tree = tuple(np.argwhere(field)[0])
+        # print("tree", tree)
+        lines = lines[ydim:]
+        out.append(lvl4_inner(field.shape, tree))
+    return "\n".join(out) + "\n"
+
+
+def lvl4_inner(shape, tree):
+    """ generate a pathgen.py that visits all cells without a tree """
+    directions_any_order = list(map(list, itertools.permutations(complex2dir, 4)))
+    for x, y, policy in itertools.product(range(shape[0]), range(shape[1]), directions_any_order):
+        path_steps = generate(*shape, tree, start=(x, y), policy=policy)
+        if path_steps is not None:
+            return path_steps
+    else:
+        print(shape, tree)
+        raise RuntimeError
+
+
+def generate(x_dim: int, y_dim: int, tree: tuple, start: Tuple[int, int], policy: List[complex], draw_path=False):
+    if start == tree:
+        return None
+    pos = complex(*start)
+    seen = {pos, complex(*tree)}
+    path = [start]
+    steps = ""
+    for _ in range(x_dim * y_dim - 2):
+        for next_move in policy:
+            pos_next = pos + next_move
+            if pos_next not in seen and (0 <= pos_next.real < x_dim) and (0 <= pos_next.imag < y_dim):
+                pos = pos_next
+                steps += complex2dir[next_move]
+                path.append((pos_next.real, pos_next.imag))
+                seen.add(pos)
+                break
+        else:
+            return None
+    if draw_path:
+        plt.plot(*zip(*path))
+        plt.show()
+    return steps
 
 
 if __name__ == "__main__":
-    level = 1
+    level = 5
     done = set(open("data/done.txt").read().strip().split("\n"))
     todo_this_level = len([f for f in os.listdir("data") if f.startswith(f"level{level}_") and f.endswith(".in")])
     for i in ["example"] + list(range(1, todo_this_level + 1)):
@@ -112,10 +140,14 @@ if __name__ == "__main__":
             continue
         lines = open(f_in).read().strip().split("\n")[1:]
         lvl_func = globals()[f"lvl{level}"]
-        res = "\n".join([lvl_func(line) for line in lines]) + "\n"
+        if level < 2:
+            res = "\n".join([lvl_func(line) for line in lines]) + "\n"
+        else:
+            res = lvl_func(lines)
         if i == "example" or example in done:
             expected = open(f"data/{example}.out").read()
             # assert res == expected, f"{res}\n\n{expected}"
+            print(i)
         else:
             open(f"data/level{level}_{i}.out", "w").write(res)
             submit(example)

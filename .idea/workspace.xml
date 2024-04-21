@@ -5,9 +5,68 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63550894-8036-4c39-abfe-242e359d73a7" name="Changes" comment="initial">
+      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/visualizer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/level5_1.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level5_1.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/done.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/done.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level1_1.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level1_1.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level1_1.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level1_1.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level1_2.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level1_2.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level1_2.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level1_2.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level1_3.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level1_3.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level1_3.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level1_3.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level1_4.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level1_4.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level1_4.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level1_4.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level1_5.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level1_5.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level1_5.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level1_5.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level1_example.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level1_example.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level1_example.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level1_example.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level2_1.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level2_1.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level2_1.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level2_1.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level2_2.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level2_2.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level2_2.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level2_2.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level2_3.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level2_3.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level2_3.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level2_3.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level2_4.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level2_4.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level2_4.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level2_4.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level2_5.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level2_5.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level2_5.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level2_5.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level2_example.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level2_example.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level2_example.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level2_example.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level3_1.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level3_1.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level3_1.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level3_1.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level3_2.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level3_2.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level3_2.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level3_2.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level3_3.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level3_3.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level3_3.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level3_3.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level3_4.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level3_4.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level3_4.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level3_4.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level3_5.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level3_5.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level3_5.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level3_5.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level3_example.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level3_example.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level3_example.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level3_example.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_1.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level4_1.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_1.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_2.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level4_2.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_2.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_3.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level4_3.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_3.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_4.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level4_4.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_4.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_5.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level4_5.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_5.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_example.in" beforeDir="false" afterPath="$PROJECT_DIR$/data/level4_example.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_example.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level4_example.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level5_1.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level5_1.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level5_2.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level5_3.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level5_4.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level5_5.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level5_example.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level5_example.out" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/submitter.py" beforeDir="false" afterPath="$PROJECT_DIR$/submitter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +81,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GoLibraries">
@@ -39,26 +103,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;MATLAB_INTERPRETER&quot;: &quot;/bin/octave&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "MATLAB_INTERPRETER": "/bin/octave",
+    "Python.ccc39.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.spiral.executor": "Run",
+    "Python.zigzag.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "go.import.settings.migrated": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/data" />
     </key>
   </component>
@@ -79,6 +152,7 @@
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ccc24" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -100,6 +174,42 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ccc24" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -111,6 +221,11 @@
       <updated>1713483555700</updated>
       <workItem from="1713483556688" duration="10491000" />
       <workItem from="1713519212768" duration="7546000" />
+      <workItem from="1713527572581" duration="12000" />
+      <workItem from="1713527600148" duration="23000" />
+      <workItem from="1713538746858" duration="323000" />
+      <workItem from="1713531928392" duration="14311000" />
+      <workItem from="1713709107674" duration="4702000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -134,6 +249,17 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial" />
     <option name="LAST_COMMIT_MESSAGE" value="initial" />
@@ -142,8 +268,34 @@
     <integration-enabled>false</integration-enabled>
     <settings-migrated>true</settings-migrated>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/submitter.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>126</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ccc24$submitter.coverage" NAME="submitter Coverage Results" MODIFIED="1713485617402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ccc24$main.coverage" NAME="main Coverage Results" MODIFIED="1713527092413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/ccc24$zigzag.coverage" NAME="zigzag Coverage Results" MODIFIED="1713542898322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ccc24$spiral.coverage" NAME="spiral Coverage Results" MODIFIED="1713543308008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ccc24$ccc39.coverage" NAME="main Coverage Results" MODIFIED="1713727928811" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ccc24$main.coverage" NAME="main Coverage Results" MODIFIED="1713727035185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
