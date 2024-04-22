@@ -104,7 +104,7 @@ def lvl4_inner(shape, tree):
         raise RuntimeError
 
 
-def generate(x_dim: int, y_dim: int, tree: tuple, start: Tuple[int, int], policy: List[complex], draw_path=False):
+def generate(x_dim: int, y_dim: int, tree: tuple, start: Tuple[int, int], policy: List[complex], draw_path=True):
     if start == tree:
         return None
     pos = complex(*start)
@@ -123,13 +123,20 @@ def generate(x_dim: int, y_dim: int, tree: tuple, start: Tuple[int, int], policy
         else:
             return None
     if draw_path:
+        f = plt.figure(figsize=(x_dim+1, y_dim+1), dpi=72)
         plt.plot(*zip(*path))
-        plt.show()
+        # plt.show()
+        plt.grid(True)
+        # draw a big X for the tree
+        plt.scatter(*tree, s=200, c="red", marker="x")
+        plt.axis("equal")
+        plt.savefig(f"data/img/{x_dim}_{y_dim}_{tree}.png")
+        plt.close(f)
     return steps
 
 
 if __name__ == "__main__":
-    level = 5
+    level = 4
     done = set(open("data/done.txt").read().strip().split("\n"))
     todo_this_level = len([f for f in os.listdir("data") if f.startswith(f"level{level}_") and f.endswith(".in")])
     for i in ["example"] + list(range(1, todo_this_level + 1)):
@@ -157,5 +164,5 @@ if __name__ == "__main__":
     if done_this_level == todo_this_level:
         # increase level
         fc = open(__file__, "r").read()
-        open(__file__, "w").write(fc.replace(f"level = {level}", f"level = {level + 1}"))
-        webbrowser.open(URL_PLAY)
+        # open(__file__, "w").write(fc.replace(f"level = {level}", f"level = {level + 1}"))
+        # webbrowser.open(URL_PLAY)
