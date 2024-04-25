@@ -1,16 +1,39 @@
+import itertools
+import multiprocessing
 import os
 import webbrowser
 from collections import Counter
+from functools import cache
+from random import choice
+from typing import List, Optional, Dict, Tuple
+
+import z3
+from frozendict import frozendict
+from z3 import Datatype, If, Or, Solver, Const, sat, And, Not
 
 from submitter import submit, URL_PLAY
 
 
+@cache
 def fight(a, b):
     """ return the winner of a rock paper lizard spock game, where spock is Y """
-    winning_chars = {"R": "LS", "P": "R", "S": "P", "L": "PS", "Y": "RL"}
-    if a == b or (a in winning_chars and b in winning_chars[a]):
+    if a == b:
+        return a
+    if a == "R" and b in "LS":
+        return a
+    if a == "P" and b in "YR":
+        return a
+    if a == "S" and b in "PL":
+        return a
+    if a == "Y" and b in "RS":
+        return a
+    if a == "L" and b in "YP":
         return a
     return b
+
+
+# create a Dict[str, set] to check which letter can be expanded to which other letters
+expandable_lookup_map = {k: {v for v in "RPSYL" if fight(k, v) == k} for k in "RPSYL"}
 
 
 def lvl1(line):
@@ -48,71 +71,217 @@ def lvl3(line):
     return out
 
 
+@cache
+def allowed_letters(budget: frozendict) -> frozenset:
+    return frozenset([k for k, v in budget.items() if v > 0])
+
+
+@cache
+def generate_policy(allowed_targets: frozenset, allowed_sources: frozenset) -> Counter[frozendict]:
+    last = [frozendict()]
+    for key_pos, key in enumerate(allowed_sources, 1):
+        allowed_possible_keys = allowed_targets & expandable_lookup_map[key]
+        curr = [frozendict({**item, key: perm})
+                for item in last
+                for perm in itertools.permutations(allowed_possible_keys & expandable_lookup_map[key])]
+        last = curr
+    return curr
+
+
+@cache
+def expand_state_policy(budget: dict, to_expand: str, policy_a: frozendict, policy_b: Optional[frozendict], tresh: int, layer: int) -> Optional[str]:
+    expanded = []
+    budget = Counter(budget)
+    policy = policy_a
+    for exp_idx, curr in enumerate(to_expand):
+        if exp_idx == tresh:
+            policy = policy_b
+        for try_expand in policy[curr]:
+            if budget[try_expand] > 0:
+                expanded.append(try_expand)
+                expanded.append(curr)
+                budget[try_expand] -= 1
+                break
+        else:
+            return None
+    if sum(budget.values()) == 0:
+        return "".join(expanded)
+    expand_func = expand_state_simple if policy_b is None else expand_state
+    res = expand_func(frozendict(budget), "".join(expanded), layer + 1)
+    if res is not None:
+        return res
+
+
+def my_cache(func):
+    """ like the functools cache, but the to_expand parameter at pos 1 is sorted() before caching """
+    cache = {}
+
+    def wrapper(*args):
+        key = (args[0], "".join(sorted(args[1])), *args[2:])
+        if key not in cache:
+            cache[key] = func(*args)
+        return cache[key]
+
+    return wrapper
+
+
+
+@my_cache
+def expand_state(budget: dict, to_expand: str, layer=0) -> Optional[str]:
+    gpc = generate_policy(allowed_letters(budget), frozenset(to_expand))
+    # sort keys by the number of times they appear in the Counter(policy)
+    # print(f"{' ' * (layer)}{to_expand} {budget} {gpc}")
+    for policy_a in gpc:
+        for policy_b in gpc:
+            for switch_idx in range(1, len(to_expand)) if policy_a != policy_b else [0]:
+                res = expand_state_policy(frozendict(budget), to_expand, policy_a, policy_b, switch_idx, layer)
+                if res is not None:
+                    return res
+
+
+@my_cache
+def expand_state_simple(budget: dict, to_expand: str, layer=0) -> Optional[str]:
+    gpc = generate_policy(allowed_letters(budget), frozenset(to_expand))
+    # sort keys by the number of times they appear in the Counter(policy)
+    # print(f"{' ' * (layer)}{to_expand} {budget} {gpc}")
+    for policy in gpc:
+        res = expand_state_policy(frozendict(budget), to_expand, policy, None, -1, layer)
+        if res is not None:
+            return res
+
+
 def lvl4(line):
-    # expand so that you consume R first, then P, then S
     budget = Counter({k: int("".join(v)) for *v, k in line.split(" ")})
     budget["S"] -= 1
-    out = "S"
-    expansion_dicts = [
-        {"R": "RS", "P": "RP", "S": "PS"},
-        {"R": "SR", "P": "RP", "S": "PS"},
-        {"R": "RS", "P": "PR", "S": "PS"},
-        {"R": "SR", "P": "RP", "S": "PS"},
-        {"R": "RS", "P": "RP", "S": "SP"},
-        {"R": "SR", "P": "RP", "S": "SP"},
-        {"R": "RS", "P": "PR", "S": "SP"},
-        {"R": "SR", "P": "RP", "S": "SP"},
-    ]
-
-    def expand(iin, budget, expand_dict):
-        nout = ""
-        for i in iin:
-            for try_expand in expand_dict[i]:
-                if budget[try_expand] > 0:
-                    nout += try_expand + i
-                    budget[try_expand] -= 1
-                    break
-            else:
-                raise ValueError("no expansion possible")
-        if sum(budget.values()) == 0:
-            for expand_dict in expansion_dicts:
-                try:
-                    nout, budget = expand(nout, budget.copy(), expand_dict)
-                    break
-                except ValueError:
-                    pass
-        return nout, budget
-
-    for expand_dict in expansion_dicts:
-        try:
-            out, budget = expand(out, budget, expand_dict)
-            break
-        except ValueError:
-            pass
-    else:
-        raise ValueError(":(")
-    winner = lvl2(out, to_end=True)
-    assert "S" == winner, (winner, out)
-    return out
+    res = expand_state_simple(frozendict(budget), "S")
+    if res is None:
+        res = expand_state(frozendict(budget), "S")
+        print("done with hard mode")
+    if res is None:
+        raise ValueError(f"No solution found for {line}/{budget}")
+    print(line)
+    assert lvl2(res, to_end=True) == "S", (res, line)
+    return res
 
 
 def lvl5(line):
-    pass
+    res = lvl4(line)
+    return res
+
+
+
+# Define the fighter symbols using Z3 Datatype
+Fighter = Datatype('Fighter')
+for name in "RPSYL":
+    Fighter.declare(name)
+Fighter = Fighter.create()
+
+
+# Create a Z3 function to decide the winner based on the rules
+def winner(a, b):
+    return If(a == b, a,  # If the same, it's a tie
+              If(Or(
+                  And(a == Fighter.R, Or(b == Fighter.S, b == Fighter.L)),  # Rock wins
+                  And(a == Fighter.P, Or(b == Fighter.R, b == Fighter.Y)),  # Paper wins
+                  And(a == Fighter.S, Or(b == Fighter.P, b == Fighter.L)),  # Scissors wins
+                  And(a == Fighter.Y, Or(b == Fighter.R, b == Fighter.S)),  # Spock wins
+                  And(a == Fighter.L, Or(b == Fighter.P, b == Fighter.Y))),  # Lizard wins
+                  a, b))
+
+
+def replace_z(line: str, opts: str, cnt: int):
+    for z_fill in opts:
+        line2 = line.replace("Z", z_fill)
+        yield line2
+    for _ in range(cnt):
+        line2 = line
+        while "Z" in line2:
+            # replace with random from opts
+            line2 = line2.replace("Z", choice(opts), 1)
+        yield line2
+
+
+def generate_example(line: str, x_variables) -> Tuple[z3.Bool, Dict[int, z3.Const]]:
+    fighters = []
+    z_variables = {pos: Const("z"+str(pos), Fighter) for pos in range(len(line)) if line[pos] == "Z"}
+    for i, symbol in enumerate(line):
+        if symbol == "X":
+            f = x_variables[i]
+        elif symbol == "Z":
+            f = z_variables[i]
+        else:
+            f = getattr(Fighter, symbol)
+        fighters.append(f)
+    while len(fighters) > 1:
+        fighters = [winner(a, b) for a, b in zip(fighters[::2], fighters[1::2])]
+    return fighters[0] == Fighter.S, z_variables
+
+
+def template_in(m: z3.Model, res: List, x_variables: Dict[int, z3.Const], fill="X") -> str:
+    for pos, x_var in x_variables.items():
+        val = str(m[x_var])
+        res[pos] = val if val != "None" else fill
+    return "".join(res)
+
+
+def lvl6(line, lvl7=False, cnt=1):
+    # print(line)
+    s = Solver()
+    x_variables = {pos: Const(str(pos), Fighter) for pos in range(len(line)) if line[pos] == "X"}
+    for line2 in replace_z(line, "RPSYL", cnt):
+        clause, _ = generate_example(line2, x_variables)
+        s.add(clause)
+
+    while True:
+        if s.check() != sat:
+            raise ValueError(f"No solution found for {line}")
+
+        res = template_in(s.model(), list(line), x_variables)
+        # try to find any assignment of Z-variables where the winner is not  S
+        clause, z_variables = generate_example(res, x_variables)
+        s_ctr = Solver()
+        s_ctr.add(Not(clause))
+        if s_ctr.check() == sat:
+            counter_line = template_in(s_ctr.model(), list(line), z_variables, fill="R")
+            # counter_line_with_x = template_in(s.model(), list(counter_line), x_variables)
+            # print(f"ctr-x {counter_line_with_x}")
+            # win = lvl2(counter_line_with_x, to_end=True)
+            # assert win != "S", (counter_line, win)
+            # print(line, counter_line, counter_line_with_x, sep="\n")
+            counter_example, _ = generate_example(counter_line, x_variables)
+            s.add(counter_example)
+        else:
+            break
+
+    # heuristic winner check
+    for r in replace_z(res, "RPSYL", cnt=cnt*128):
+        win = lvl2(r, to_end=True)
+        if win != "S":
+            print(f"retrying {line[:10]} with {cnt*4}")
+            return lvl6(line, lvl7=lvl7, cnt=cnt*4)
+    print(line, "".join(res), win)
+    return "".join(res)
+
+
+def lvl7(line):
+    return lvl6(line, lvl7=True)
 
 
 if __name__ == "__main__":
-    level = 1
+    level = 8
     done = set(open("data/done.txt").read().strip().split("\n"))
     todo_this_level = len([f for f in os.listdir("data") if f.startswith(f"level{level}_") and f.endswith(".in")])
     for i in ["example"] + list(range(1, todo_this_level + 1)):
         example = f"level{level}_{i}"
         f_in = f"data/{example}.in"
         # check if the example.in exists and is not done
-        if not os.path.exists(f_in):
+        if not os.path.exists(f_in) or example in done:
             continue
         lines = open(f_in).read().strip().split("\n")[1:]
         lvl_func = globals()[f"lvl{level}"]
-        res = "\n".join([lvl_func(line) for line in lines]) + "\n"
+        with multiprocessing.Pool(16) as pool:
+            res = "\n".join(pool.map(lvl_func, lines)) + "\n"
+        # res = "\n".join([lvl_func(l) for l in lines]) + "\n"
         if i == "example" or example in done:
             expected = open(f"data/{example}.out").read()
             # assert res == expected, f"{res}\n\n{expected}"

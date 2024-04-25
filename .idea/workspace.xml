@@ -5,9 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63550894-8036-4c39-abfe-242e359d73a7" name="Changes" comment="initial">
+      <change afterPath="$PROJECT_DIR$/data/level5_2.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level5_3.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level5_4.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level5_5.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level6_1.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level6_1.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level6_2.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level6_2.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level6_3.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level6_3.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level6_4.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level6_4.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level6_5.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level6_5.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level6_example.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level6_example.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level7_1.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level7_1.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level7_2.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level7_2.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level7_3.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level7_3.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level7_4.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level7_4.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level7_5.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level7_5.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level7_example.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/level7_example.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/done.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/done.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_1.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level4_1.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_2.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level4_2.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_3.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level4_3.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_4.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level4_4.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level4_5.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level4_5.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/level5_1.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/level5_1.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/submitter.py" beforeDir="false" afterPath="$PROJECT_DIR$/submitter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +52,20 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Nim File" />
         <option value="Python Script" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -39,30 +86,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;MATLAB_INTERPRETER&quot;: &quot;/bin/octave&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "MATLAB_INTERPRETER": "/bin/octave",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "/home/m/IdeaProjects/ccc24",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/data" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
+    <configuration default="true" type="Application" factoryName="Application">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="MatlabApplication">
       <option name="FILE_PATH" value="" />
       <option name="INTERPRETER_PATH" value="" />
@@ -72,7 +126,7 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration default="true" type="NimRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="fighter_lookup" type="NimRunConfiguration" factoryName="Application" temporary="true" MAIN_FILE="$PROJECT_DIR$/fighter_lookup.nim" BACKEND="C" COMPILER_PARAMS="--threads:on -d:release" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="nim.task.build.to.cache" enabled="true" />
       </method>
@@ -100,6 +154,15 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Nim Application.fighter_lookup" />
+      <item itemvalue="Python.main" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Nim Application.fighter_lookup" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -110,7 +173,10 @@
       <option name="presentableId" value="Default" />
       <updated>1713483555700</updated>
       <workItem from="1713483556688" duration="10491000" />
-      <workItem from="1713519212768" duration="7546000" />
+      <workItem from="1713519212768" duration="7580000" />
+      <workItem from="1713693156329" duration="16273000" />
+      <workItem from="1713777841977" duration="3000" />
+      <workItem from="1713963383248" duration="29925000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -128,11 +194,30 @@
       <option name="project" value="LOCAL" />
       <updated>1713494047652</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="initial">
+      <option name="closed" value="true" />
+      <created>1713527218014</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1713527218014</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial" />
@@ -144,6 +229,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ccc24$submitter.coverage" NAME="submitter Coverage Results" MODIFIED="1713485617402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ccc24$main.coverage" NAME="main Coverage Results" MODIFIED="1713527092413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/ccc24$main.coverage" NAME="main Coverage Results" MODIFIED="1714008134941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/ccc24$find_x.coverage" NAME="find_x Coverage Results" MODIFIED="1713993272801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
